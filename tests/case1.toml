@@ -1,0 +1,10 @@
+[person]
+name = "Johanna"
+city = "Johannesburg"
+
+[bag]
+of = "fruit"
+    [bag.contents]
+    apple = 1
+    orange = 3
+    kiwi = 5

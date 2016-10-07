@@ -1,0 +1,7 @@
+Hello, {{ person.name }}!
+
+How's the weather in {{ person.city }}?
+
+I have a bag of {{ bag.of }}.  It contains:
+{% for item, cnt in bag.contents|dictsort %}{{ cnt }} {{ item }}{% if cnt > 1 %}s{% endif %}{% if loop.revindex0 == 1 %}, and{% elif loop.revindex0 == 0 %}.{% else %}, {% endif %}
+{% endfor %}
