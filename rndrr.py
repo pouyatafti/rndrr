@@ -10,6 +10,20 @@ def parseArgs():
     parser.add_argument("-f", "-file", dest="tmplFilename", required=False, help="template")
     return parser.parse_args()
 
+def askValues(d, askCode, printStr, copy=True):
+    if copy:
+        do = d.copy()
+    else:
+        do = d
+    for k,v in do.items():
+        if isinstance(v, dict):
+            askValues(v, askCode, printStr % (str(k) + ".%s"), False)
+        elif v == askCode:
+            do[k] = input(printStr % str(k)) 
+        else:
+            pass
+
+    return do
 
 ctxt = parseArgs()
 
@@ -18,6 +32,9 @@ with open(ctxt.confFilename, "r") as f:
     confStr = f.read()
 
 conf = toml.loads(confStr)
+if ctxt.tmplFilename is not None:
+    conf = askValues(conf, "<interactive>", "enter value for %s: ")
+
 
 # read template
 if ctxt.tmplFilename is None:
