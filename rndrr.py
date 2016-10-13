@@ -25,6 +25,7 @@ def askValues(d, askCode, printStr, copy=True):
 
     return do
 
+
 ctxt = parseArgs()
 
 # read template config
@@ -34,7 +35,6 @@ with open(ctxt.confFilename, "r") as f:
 conf = toml.loads(confStr)
 if ctxt.tmplFilename is not None:
     conf = askValues(conf, "<interactive>", "enter value for %s: ")
-
 
 # read template
 if ctxt.tmplFilename is None:
