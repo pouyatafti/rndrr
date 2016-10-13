@@ -8,6 +8,7 @@ def parseArgs():
     parser = argparse.ArgumentParser(description="rndrr.py")
     parser.add_argument("-c", "-conf", dest="confFilename", required=True, help="template configuration")
     parser.add_argument("-f", "-file", dest="tmplFilename", required=False, help="template")
+    parser.add_argument("-o", "-out", dest="outFilename", required=False, help="output")
     return parser.parse_args()
 
 def askValues(d, askCode, printStr, copy=True):
@@ -46,4 +47,8 @@ else:
 tmpl = Template(tmplStr)
 
 # render and print
-print(tmpl.render(**conf))
+if ctxt.outFilename is None:
+    print(tmpl.render(**conf))
+else:
+    with open(ctxt.outFilename, "w") as f:
+        f.write(tmpl.render(**conf))
